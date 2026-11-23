@@ -288,6 +288,18 @@ function startGame() {
 
   if (prepScreen) {
     prepScreen.classList.remove("hidden");
+    // Offline: do not block the entire game on network-based speech recognition.
+    // Oral missions instead provide a local recorder and teacher confirmation.
+    if (!navigator.onLine && readyBtn) {
+      readyBtn.disabled = false;
+      readyBtn.classList.remove("hidden");
+      const overlay = document.querySelector("#startJourneyOverlay");
+      if (overlay) overlay.classList.remove("hidden");
+      if (micTestStatus) {
+        micTestStatus.textContent = "📴 Mod luar talian: Mikrofon diuji semasa latihan lisan. Tekan MULA BERMAIN untuk meneruskan.";
+        micTestStatus.className = "mic-test-status warning";
+      }
+    }
   } else {
     enterWorld();
   }
