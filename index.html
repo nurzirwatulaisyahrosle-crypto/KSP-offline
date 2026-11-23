@@ -16,6 +16,7 @@
 
   <div class="start-card">
     <img class="start-logo" src="assets/ksp-v2-logo.png" alt="Kembara Si PeTara — Jelajah, Dengar, Faham, Tutur">
+    <div id="offlineReadyStatus" role="status" aria-live="polite" style="font:700 13px sans-serif;text-align:center;color:#fff;background:#135a70;border:1px solid #a5f0dd;border-radius:12px;padding:9px;margin:8px auto;max-width:340px">📦 Sedang menyediakan permainan untuk offline...</div>
 
     <div class="name-box">
       <label for="studentName">🌟 Nama Pengembara</label>
@@ -349,6 +350,24 @@
   }
 </script>
 <script src="script.js?v=20261124-cp1-1-newrecording"></script>
+<script>
+(function(){
+  const el=document.getElementById("offlineReadyStatus");
+  const tell=(text)=>{if(el)el.textContent=text;};
+  if(!("serviceWorker" in navigator)){tell("⚠️ Pelayar ini tidak menyokong penyimpanan offline.");return;}
+  navigator.serviceWorker.addEventListener("message",event=>{
+    if(event.data?.type!=="OFFLINE_STATUS")return;
+    const {cached,total,ready}=event.data;
+    tell(ready ? "✅ Offline tersedia — tambah ke Skrin Utama untuk bermain tanpa Internet." :
+      "📦 Fail tersedia "+cached+"/"+total+". Pastikan Internet aktif ketika persediaan pertama.");
+  });
+  const check=()=>navigator.serviceWorker.ready.then(reg=>{
+    if(reg.active)reg.active.postMessage({type:"CHECK_OFFLINE"});
+  }).catch(()=>tell("⚠️ Persediaan offline belum tersedia."));
+  navigator.serviceWorker.addEventListener("controllerchange",check);
+  window.addEventListener("load",()=>{check();setTimeout(check,3500);});
+})();
+</script>
 
 </body>
 </html>
