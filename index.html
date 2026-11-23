@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kembara Si PeTaRa</title>
+  <link rel="stylesheet" href="style.css?v=20261123-m3m4-instructions1">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#166d84">
+</head>
+<body>
+<div id="globalCreatorCredit" class="global-creator-credit" aria-label="Kredit pembangun">@Zirwatul.A</div>
+
+<section id="startScreen" class="screen start-screen">
+  <div class="night-stars" aria-hidden="true"></div>
+
+  <div class="start-card">
+    <img class="start-logo" src="assets/ksp-v2-logo.png" alt="Kembara Si PeTara — Jelajah, Dengar, Faham, Tutur">
+
+    <div class="name-box">
+      <label for="studentName">🌟 Nama Pengembara</label>
+
+      <input
+        id="studentName"
+        type="text"
+        maxlength="24"
+        autocomplete="off"
+        placeholder="Masukkan nama kamu"
+      >
+
+      <p
+        id="nameError"
+        class="error"
+        aria-live="polite"
+      ></p>
+
+      <div class="avatar-choice" role="group" aria-labelledby="avatarChoiceLabel">
+        <p id="avatarChoiceLabel" class="avatar-choice-title">🎭 PILIH AVATAR KAMU</p>
+        <div class="avatar-grid" id="avatarGrid">
+          <button type="button" class="avatar-option" data-avatar="boy1" aria-label="Pengembara lelaki berbaju biru" aria-pressed="false"><span class="avatar-art" aria-hidden="true"></span></button>
+          <button type="button" class="avatar-option" data-avatar="boy2" aria-label="Pengembara lelaki bertopi hijau" aria-pressed="false"><span class="avatar-art" aria-hidden="true"></span></button>
+          <button type="button" class="avatar-option" data-avatar="girl1" aria-label="Pengembara perempuan bertudung ungu muda" aria-pressed="false"><span class="avatar-art" aria-hidden="true"></span></button>
+          <button type="button" class="avatar-option" data-avatar="girl2" aria-label="Pengembara perempuan berambut ekor kuda" aria-pressed="false"><span class="avatar-art" aria-hidden="true"></span></button>
+          <button type="button" class="avatar-option" data-avatar="teacherM" aria-label="Cikgu lelaki berkaca mata" aria-pressed="false"><span class="avatar-art" aria-hidden="true"></span></button>
+          <button type="button" class="avatar-option" data-avatar="teacherF" aria-label="Cikgu perempuan bertudung berkaca mata" aria-pressed="false"><span class="avatar-art" aria-hidden="true"></span></button>
+        </div>
+        <p id="avatarError" class="error" aria-live="polite"></p>
+      </div>
+
+      <button
+        id="startBtn"
+        class="primary-btn"
+      >
+        🎮 MARI BERMAIN!
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<section
+  id="prepScreen"
+  class="screen prep-screen hidden"
+>
+  <div class="prep-card">
+
+    <div class="prep-icon">🌟</div>
+
+    <h2>
+      ARAHAN SEBELUM BERMAIN
+    </h2>
+
+    <div class="prep-list">
+      <p>🎤 Pastikan anda membenarkan <strong class="prep-emphasis">akses mikrofon</strong> pada peranti anda sebelum bermain.</p>
+      <p>🗣️ Sebut jawapan dengan <strong class="prep-emphasis">suara yang jelas</strong>.</p>
+      <p>🎧 <strong class="prep-emphasis">Penggunaan fon telinga</strong> digalakkan untuk pengalaman bermain yang lebih lancar dan menyeronokkan.</p>
+    </div>
+
+    <div class="mic-test-box">
+
+      <h3>
+        🎤 UJI MIKROFON SEBELUM BERMAIN
+      </h3>
+
+      <p class="test-instruction">Sebut <strong>“Hai, PeTara!”</strong> dengan jelas untuk menguji mikrofon.</p>
+
+      <button
+        id="testMicBtn"
+        class="test-mic-btn"
+      >
+        🎤 UJI MIKROFON
+      </button>
+
+      <p
+        id="micTestStatus"
+        class="mic-test-status"
+        aria-live="polite"
+      ></p>
+
+    </div>
+
+    <div id="startJourneyOverlay" class="start-journey-overlay hidden" role="dialog" aria-modal="true" aria-label="Mulakan Kembara">
+      <button id="readyBtn" class="primary-btn start-journey-button" disabled>🎮 TEKAN UNTUK MULA BERMAIN</button>
+    </div>
+
+  </div>
+</section>
+
+
+<section
+  id="gameScreen"
+  class="screen game-screen hidden"
+>
+
+  <div id="worldViewport">
+
+    <div id="world">
+
+      <img
+        id="worldMap"
+        src="assets/map/petara-world-map.png"
+        alt="Dunia Kembara Si PeTaRa"
+      >
+
+      <div
+        id="checkpointLayer"
+        aria-hidden="true"
+      ></div>
+
+      <div id="player">
+
+        <div id="playerName">
+          Pengembara
+        </div>
+
+        <img
+          id="playerSprite"
+          src="assets/player/petara-idle.png"
+          alt="Si PeTaRa"
+        >
+
+      </div>
+
+    </div>
+
+
+    <header id="hud">
+
+      <div class="hud-player">
+
+        <img
+          src="assets/player/petara-idle.png"
+          alt=""
+        >
+
+        <div>
+          <span>PENGEMBARA</span>
+          <strong id="hudName">-</strong>
+        </div>
+
+      </div>
+
+
+      <div class="hud-score">
+        ⭐
+        <strong id="score">
+          0
+        </strong>
+      </div>
+
+
+      <div class="hud-progress">
+        🚩
+        <strong id="progress">
+          0/5
+        </strong>
+      </div>
+
+    </header>
+
+
+    <div id="movementHelp">
+
+      <strong>
+        CARA BERGERAK
+      </strong>
+
+      <span>
+        W / A / S / D atau anak panah
+      </span>
+
+    </div>
+
+
+    <div
+      id="interactionMessage"
+      class="interaction hidden"
+    ></div>
+
+
+    <button
+      id="interactBtn"
+      class="interact-btn hidden"
+    >
+      ✨ MULAKAN MISI ✨
+    </button>
+
+
+    <div
+      id="dpad"
+      aria-label="Kawalan pergerakan"
+    >
+
+      <button
+        data-key="ArrowUp"
+        class="up"
+      >
+        ▲
+      </button>
+
+      <button
+        data-key="ArrowLeft"
+        class="left"
+      >
+        ◀
+      </button>
+
+      <button
+        data-key="ArrowDown"
+        class="down"
+      >
+        ▼
+      </button>
+
+      <button
+        data-key="ArrowRight"
+        class="right"
+      >
+        ▶
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<div
+  id="checkpointModal"
+  class="modal hidden"
+>
+
+  <div class="modal-card activity-card">
+
+    <button id="missionHomeBtn" class="mission-home-btn" type="button" aria-label="Kembali ke peta" title="Kembali ke peta">🏠</button>
+
+    <button
+      id="closeModal"
+      class="close-btn"
+      aria-label="Kembali ke peta"
+    >
+      ×
+    </button>
+
+    <div class="modal-icon">
+      🚩
+    </div>
+
+    <h2 id="modalTitle">
+      Misi
+    </h2>
+
+    <div id="activityArea"></div>
+
+  </div>
+
+</div>
+
+
+<div
+  id="resultModal"
+  class="modal hidden"
+>
+
+  <div class="modal-card result-card">
+
+    <div class="trophy">
+      🏆
+    </div>
+
+    <h2>
+      TAHNIAH!
+    </h2>
+
+    <p id="resultText"></p>
+
+    <div class="result-score">
+      <span id="resultScore" aria-label="Lima bintang">
+        ⭐⭐⭐⭐⭐
+      </span>
+    </div>
+
+    <p>
+      🚩 Checkpoint:
+      <strong>5/5</strong>
+    </p>
+
+    <p>
+      🎧 Mendengar selesai
+      •
+      🎙️ Bertutur selesai
+    </p>
+
+    <p class="result-cheer">
+      🌟 Tahniah! Kamu kini seorang
+      Si PeTaRa yang hebat!
+    </p>
+
+    <div class="activity-actions">
+
+      <button
+        id="restartBtn"
+        class="primary-btn"
+      >
+        🔄 MAIN SEMULA
+      </button>
+
+      <button
+        id="homeBtn"
+        class="next-btn"
+      >
+        🗺️ KEMBALI KE PETA
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+  // Offline game does not connect to Firebase or share player data.
+  window.__kspJoinMultiplayer = null;
+  window.__kspLeaveMultiplayer = null;
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(console.warn));
+  }
+</script>
+<script src="script.js?v=20261124-cp1-1-newrecording"></script>
+
+</body>
+</html>
+<!-- redeploy -->
