@@ -9,9 +9,10 @@
   "theme_color": "#166d84",
   "icons": [
     {
-      "src": "../KSP-V2/assets/ksp-v2-logo.png",
+      "src": "assets/ksp-v2-logo.png",
       "sizes": "any",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
