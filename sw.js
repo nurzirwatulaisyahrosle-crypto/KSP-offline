@@ -1,6 +1,6 @@
 /* Kembara Si PeTara - standalone offline cache, scoped to /KSP-offline/.
    Downloads original permitted game assets once; nothing changes in KSP-V2. */
-const CACHE_NAME = "ksp-offline-v3-voice-practice-20261124";
+const CACHE_NAME = "ksp-offline-v4-start-without-network-20261124";
 const LOCAL_FILES = ["./", "./index.html", "./script.js", "./style.css", "./manifest.webmanifest"];
 const ASSETS = [
   "assets/audio/cp1-1.m4a",
