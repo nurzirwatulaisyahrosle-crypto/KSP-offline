@@ -288,17 +288,14 @@ function startGame() {
 
   if (prepScreen) {
     prepScreen.classList.remove("hidden");
-    // Offline: do not block the entire game on network-based speech recognition.
-    // Oral missions instead provide a local recorder and teacher confirmation.
-    if (readyBtn) {
-      readyBtn.disabled = false;
-      readyBtn.classList.remove("hidden");
-      const overlay = document.querySelector("#startJourneyOverlay");
-      if (overlay) overlay.classList.remove("hidden");
-      if (micTestStatus) {
-        micTestStatus.textContent = "📴 Mod luar talian: Mikrofon diuji semasa latihan lisan. Tekan MULA BERMAIN untuk meneruskan.";
-        micTestStatus.className = "mic-test-status warning";
-      }
+    // Reset the preparation flow every time: microphone test FIRST.
+    micTestPassed = false;
+    if (readyBtn) readyBtn.disabled = true;
+    document.querySelector("#startJourneyOverlay")?.classList.add("hidden");
+    if (testMicBtn) testMicBtn.disabled = false;
+    if (micTestStatus) {
+      micTestStatus.textContent = "🎤 Tekan UJI MIKROFON untuk membenarkan akses sebelum bermain.";
+      micTestStatus.className = "mic-test-status";
     }
   } else {
     enterWorld();
@@ -344,6 +341,9 @@ if (readyBtn) {
 
 function testMicrophone() {
   // Device microphone test, not cloud speech recognition.
+  micTestPassed = false;
+  if (readyBtn) readyBtn.disabled = true;
+  document.querySelector("#startJourneyOverlay")?.classList.add("hidden");
   if (!navigator.mediaDevices?.getUserMedia) {
     if (micTestStatus) {
       micTestStatus.textContent = "⚠️ Akses mikrofon tidak tersedia. Buka menggunakan Safari (HTTPS) dan cuba lagi.";
@@ -382,6 +382,14 @@ function testMicrophone() {
 }
 
 function enterWorld() {
+  // No bypass: continue only after the user has successfully allowed the microphone.
+  if (!micTestPassed) {
+    if (micTestStatus) {
+      micTestStatus.textContent = "🎤 Sila tekan UJI MIKROFON dahulu sebelum mula bermain.";
+      micTestStatus.className = "mic-test-status warning";
+    }
+    return;
+  }
   if (micTestRecognition) {
     try {
       micTestRecognition.stop();
