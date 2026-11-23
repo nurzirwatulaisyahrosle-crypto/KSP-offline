@@ -1525,6 +1525,82 @@ function norm(text = "") {
 // Misi 3, Misi 4 dan Misi 5
 // =====================================================
 
+
+/* Offline-only oral practice: record locally and ask the teacher to check.
+   Without Internet there is no guaranteed automatic Safari speech scoring. */
+let offlineRecorder=null, offlineVoiceStream=null, offlineVoiceUrl=null, offlineVoiceToken=0;
+function stopOfflineVoice(silent=true) {
+  if(silent)offlineVoiceToken++;
+  const r=offlineRecorder; offlineRecorder=null;
+  if(r && r.state==="recording"){try{r.stop();}catch(e){}}
+  if(offlineVoiceStream){
+    offlineVoiceStream.getTracks().forEach(t=>t.stop());
+    offlineVoiceStream=null;
+  }
+  if(silent && offlineVoiceUrl){URL.revokeObjectURL(offlineVoiceUrl);offlineVoiceUrl=null;}
+  if(silent){isRecording=false;setRecordButton(false);}
+}
+async function handleOfflineVoiceButton() {
+  if(offlineRecorder?.state==="recording"){offlineRecorder.stop();return;}
+  if(typeof MediaRecorder==="undefined"||!navigator.mediaDevices?.getUserMedia){
+    setStatus("⚠️ Pelayar tidak menyokong rakaman suara luar talian.");return;
+  }
+  stopSpeech();
+  stopOfflineVoice(true);
+  const token=++offlineVoiceToken, mission=game.modalCheckpoint, question=activityIndex;
+  document.querySelector("#offlineVoiceReview")?.replaceChildren();
+  setStatus("🎙️ Meminta kebenaran mikrofon...");
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    if(token!==offlineVoiceToken||mission!==game.modalCheckpoint||question!==activityIndex){
+      stream.getTracks().forEach(t=>t.stop());return;
+    }
+    offlineVoiceStream=stream;
+    const recorder=new MediaRecorder(stream),chunks=[];
+    offlineRecorder=recorder;
+    recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+    recorder.onstop=()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      if(offlineVoiceStream===stream)offlineVoiceStream=null;
+      if(offlineRecorder===recorder)offlineRecorder=null;
+      isRecording=false;setRecordButton(false);
+      setMicIndicator(false,"🎤 Rakaman tamat");
+      if(token!==offlineVoiceToken||mission!==game.modalCheckpoint||question!==activityIndex)return;
+      const blob=new Blob(chunks,{type:recorder.mimeType||"audio/mp4"});
+      if(!blob.size){setStatus("⚠️ Tiada audio. Cuba rakam semula.");return;}
+      if(offlineVoiceUrl)URL.revokeObjectURL(offlineVoiceUrl);
+      offlineVoiceUrl=URL.createObjectURL(blob);
+      const panel=document.querySelector("#offlineVoiceReview");if(!panel)return;
+      panel.replaceChildren();
+      const intro=document.createElement("p");
+      intro.textContent="📴 Rakaman disimpan pada peranti. Guru dengar dan semak jawapan dahulu; sistem tidak menilai suara secara automatik ketika offline.";
+      const playback=document.createElement("audio");
+      playback.controls=true;playback.src=offlineVoiceUrl;playback.style.maxWidth="100%";
+      const approve=document.createElement("button");
+      approve.className="primary-btn";approve.textContent="✅ GURU SAHKAN JAWAPAN BETUL";
+      approve.onclick=()=>{
+        if(token!==offlineVoiceToken||mission!==game.modalCheckpoint||question!==activityIndex)return;
+        stopOfflineVoice(true);
+        advance();
+      };
+      const retry=document.createElement("button");
+      retry.className="record-btn";retry.textContent="🎤 RAKAM SEMULA";
+      retry.onclick=handleOfflineVoiceButton;
+      panel.append(intro,playback,approve,retry);
+      setStatus("Rakaman siap. Sila minta guru semak dan sahkan jawapan.");
+    };
+    recorder.start();
+    isRecording=true;setRecordButton(true);
+    setMicIndicator(true,"🎤 Mikrofon aktif — rakaman offline");
+    setStatus("🎙️ Sedang merakam. Tekan BERHENTI apabila selesai.");
+  }catch(e){
+    if(token===offlineVoiceToken){
+      stopOfflineVoice(true);
+      setStatus("⚠️ Mikrofon tidak dapat dibuka. Benarkan akses mikrofon dan cuba lagi.");
+    }
+  }
+}
+
 function renderVoice(
   d,
   total,
@@ -1594,6 +1670,7 @@ function renderVoice(
         class="transcript"
       >
       </div>
+      ${!navigator.onLine ? '<div id="offlineVoiceReview" class="offline-voice-review" style="display:grid;gap:8px;padding:12px;margin:10px 0;border:2px solid #8ab1b1;border-radius:12px;background:#e7f8f5"><p>📴 Mod luar talian: jawapan lisan dirakam dan disemak oleh guru.</p></div>' : ''}
     `
   );
 
@@ -1608,6 +1685,10 @@ function renderVoice(
     );
 
   listenBtn.onclick = () => {
+  if (offlineRecorder?.state==="recording") {
+    setStatus("🎤 Hentikan rakaman dahulu.");
+    return;
+  }
   if (recognition) {
     stopRecognition(true);
     setStatus("⏳ Mikrofon dihentikan. Tekan DENGAR AUDIO sekali lagi jika perlu.");
@@ -1623,6 +1704,10 @@ function renderVoice(
   */
 
 recordBtn.onclick = () => {
+  if (!navigator.onLine) {
+    handleOfflineVoiceButton();
+    return;
+  }
 
   // ===================================================
   // JIKA SEDANG MERAKAM
@@ -2269,6 +2354,9 @@ try {
 // =====================================================
 
 function stopRecognition(silent = false) {
+  if (offlineRecorder || offlineVoiceStream || (silent && offlineVoiceUrl)) {
+    stopOfflineVoice(silent);
+  }
 
   const r = recognition;
 
