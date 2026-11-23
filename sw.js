@@ -89,14 +89,17 @@ self.addEventListener("install", event => {
     // Assets are mirrored from the online repo on first installation.
     // GitHub Pages hosts both repositories under the same origin.
     const errors=[];
-    for (const relative of ASSETS) {
-      try {
-        const original=new URL(relative,ORIGIN_GAME);
-        const local=new URL(relative,LOCAL_GAME);
-        const response=await fetch(original,{cache:"reload"});
-        if(!response.ok)throw new Error(String(response.status));
-        await cache.put(local,response);
-      } catch(e) { errors.push(relative); }
+    // Concurrent batches make initial setup much faster than 75 sequential downloads.
+    for(let i=0;i<ASSETS.length;i+=8){
+      await Promise.all(ASSETS.slice(i,i+8).map(async relative=>{
+        try {
+          const original=new URL(relative,ORIGIN_GAME);
+          const local=new URL(relative,LOCAL_GAME);
+          const response=await fetch(original,{cache:"reload"});
+          if(!response.ok)throw new Error(String(response.status));
+          await cache.put(local,response);
+        } catch(e) { errors.push(relative); }
+      }));
     }
     if(errors.length)console.warn("[KSP Offline] Asset cache incomplete:", errors);
     // No automatic skipWaiting while an older game session is in progress.
