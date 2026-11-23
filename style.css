@@ -1,0 +1,2851 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  font-family:
+    "Comic Sans MS",
+    "Comic Sans",
+    cursive;
+
+  background: #071923;
+  color: #fff;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =====================================================
+   START SCREEN
+===================================================== */
+
+.start-screen {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      #fff9b8 0%,
+      #a8edff 28%,
+      #63cfee 55%,
+      #5bcf79 100%
+    );
+}
+
+.start-screen::before {
+  content: "";
+
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  bottom: -80px;
+
+  height: 230px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #73d25f 0%,
+      #46ad55 58%,
+      #318b49 100%
+    );
+
+  border-radius: 50% 50% 0 0;
+
+  opacity: 0.96;
+}
+
+.start-decor {
+  position: absolute;
+  z-index: 1;
+
+  user-select: none;
+  pointer-events: none;
+
+  filter:
+    drop-shadow(
+      0 5px 3px #0002
+    );
+}
+
+.start-decor-1 {
+  left: 5%;
+  bottom: 8%;
+
+  font-size:
+    clamp(65px, 10vw, 125px);
+}
+
+.start-decor-2 {
+  right: 9%;
+  top: 11%;
+
+  font-size:
+    clamp(38px, 6vw, 72px);
+
+  animation:
+    starFloat 2.4s ease-in-out infinite;
+}
+
+.start-decor-3 {
+  left: 9%;
+  top: 10%;
+
+  font-size:
+    clamp(45px, 7vw, 85px);
+
+  opacity: 0.92;
+}
+
+@keyframes starFloat {
+  50% {
+    transform:
+      translateY(-10px)
+      rotate(8deg);
+  }
+}
+
+.start-card {
+  position: relative;
+  z-index: 5;
+
+  width: min(560px, 94vw);
+
+  padding: 34px 36px;
+
+  text-align: center;
+
+  border:
+    5px solid #fff;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(255, 248, 207, 0.97)
+    );
+
+  color: #214d54;
+
+  box-shadow:
+    0 10px 0 #29985d,
+    0 22px 45px #174f5350;
+}
+
+.logo-badge {
+  display: inline-block;
+
+  padding: 8px 20px;
+
+  background: #ffca3a;
+  color: #573600;
+
+  border:
+    3px solid #fff;
+
+  border-radius: 14px;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 0 #c67d19;
+}
+
+.start-card h1 {
+  margin: 18px 0 3px;
+
+  font-size:
+    clamp(32px, 6vw, 58px);
+
+  line-height: 1.05;
+
+  color: #24734c;
+
+  text-shadow:
+    2px 2px 0 #fff,
+    3px 3px 0 #9ee1aa;
+}
+
+.meaning {
+  margin: 8px 0 0;
+
+  color: #37747c;
+
+  font-weight: 900;
+}
+
+.tagline {
+  margin: 10px 0 23px;
+
+  color: #e18518;
+
+  font-weight: 900;
+
+  letter-spacing: 0.4px;
+}
+
+.name-box {
+  padding: 18px;
+
+  border:
+    3px solid #75c89c;
+
+  border-radius: 20px;
+
+  background:
+    rgba(224, 255, 232, 0.72);
+}
+
+.start-card label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  text-align: left;
+
+  color: #275c4b;
+
+  font-weight: 900;
+}
+
+.start-card input {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  border:
+    3px solid #66b98c;
+
+  border-radius: 13px;
+
+  background: #fff;
+
+  color: #17383e;
+
+  outline: none;
+}
+
+.start-card input:focus {
+  border-color: #ffbc2e;
+
+  box-shadow:
+    0 0 0 4px #ffe8a3;
+}
+
+.start-card input::placeholder {
+  color: #82989b;
+}
+
+.error {
+  min-height: 22px;
+
+  margin: 7px 0;
+
+  color: #c33f3f;
+
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.primary-btn {
+  border: 0;
+
+  border-radius: 14px;
+
+  padding: 14px 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffe36b,
+      #ffc52f
+    );
+
+  color: #493200;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 0 #b97616;
+
+  transition:
+    transform 0.12s,
+    filter 0.12s;
+}
+
+.primary-btn:hover {
+  filter: brightness(1.04);
+}
+
+.primary-btn:active {
+  transform:
+    translateY(3px);
+
+  box-shadow:
+    0 2px 0 #b97616;
+}
+
+.primary-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   PREPARATION SCREEN
+===================================================== */
+
+.prep-screen {
+  display: grid;
+  place-items: center;
+
+  padding: 18px;
+
+  overflow-y: auto;
+
+  background:
+    radial-gradient(
+      circle at 50% 15%,
+      #fff8b4 0%,
+      #b4efff 30%,
+      #65cfe8 60%,
+      #52bd72 100%
+    );
+}
+
+.prep-card {
+  width:
+    min(680px, 95vw);
+
+  max-height: 94vh;
+
+  overflow-y: auto;
+
+  padding: 28px;
+
+  text-align: center;
+
+  color: #20434b;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff,
+      #fff9df
+    );
+
+  border:
+    5px solid #fff;
+
+  border-radius: 26px;
+
+  box-shadow:
+    0 9px 0 #2f9a61,
+    0 22px 55px #174d5350;
+}
+
+.prep-icon {
+  margin-bottom: 2px;
+
+  font-size: 55px;
+}
+
+.prep-card h2 {
+  margin: 4px 0 18px;
+
+  font-size:
+    clamp(25px, 5vw, 38px);
+
+  line-height: 1.15;
+
+  color: #24734c;
+}
+
+.prep-list {
+  margin: 14px 0 18px;
+
+  padding: 10px 18px;
+
+  text-align: left;
+
+  background: #e9fbea;
+
+  border:
+    3px solid #8bcf9c;
+
+  border-radius: 18px;
+}
+
+.prep-list p {
+  margin: 12px 0;
+
+  font-size: 16px;
+
+  line-height: 1.5;
+}
+
+.prep-list strong {
+  color: #176a47;
+}
+
+.mic-test-box {
+  margin-top: 18px;
+
+  padding: 19px;
+
+  color: #183d4a;
+
+  background: #eefaff;
+
+  border:
+    4px solid #67b9d5;
+
+  border-radius: 19px;
+}
+
+.mic-test-box h3 {
+  margin: 0 0 9px;
+
+  font-size: 23px;
+
+  color: #23647b;
+}
+
+.test-instruction {
+  margin: 7px 0 15px;
+
+  font-size: 17px;
+}
+
+.test-instruction strong {
+  color: #b7444d;
+}
+
+.test-mic-btn {
+  border: 0;
+
+  border-radius: 14px;
+
+  padding: 13px 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f56d76,
+      #d94751
+    );
+
+  color: #fff;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 0 #992d35;
+}
+
+.test-mic-btn:active {
+  transform:
+    translateY(3px);
+
+  box-shadow:
+    0 2px 0 #992d35;
+}
+
+.mic-test-status {
+  min-height: 27px;
+
+  margin: 14px 0 5px;
+
+  font-weight: 900;
+
+  line-height: 1.4;
+}
+
+.mic-test-status.success {
+  color: #188048;
+}
+
+.mic-test-status.warning {
+  color: #b34835;
+}
+
+.mic-test-status.listening {
+  color: #23738f;
+}
+
+.prep-ready {
+  margin-top: 18px;
+}
+
+
+/* =====================================================
+   GAME WORLD
+===================================================== */
+
+.game-screen,
+#worldViewport {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background: #102a32;
+}
+
+#world {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  transform-origin:
+    top left;
+
+  will-change: transform;
+}
+
+#worldMap {
+  position: absolute;
+
+  inset: 0;
+
+  width: 1600px;
+  height: 900px;
+
+  display: block;
+
+  user-select: none;
+
+  -webkit-user-drag: none;
+
+  image-rendering: auto;
+}
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+#player {
+  position: absolute;
+
+  width: 58px;
+  height: 76px;
+
+  z-index: 30;
+
+  transform:
+    translate(-50%, -76%);
+
+  pointer-events: none;
+}
+
+#playerSprite {
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  transform:
+    translateX(-50%);
+
+  width: 58px;
+  height: 70px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 4px 2px #0006
+    );
+}
+
+#playerName {
+  position: absolute;
+
+  bottom: 70px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  white-space: nowrap;
+
+  padding: 3px 8px;
+
+  background: #152631e8;
+
+  border:
+    2px solid #fff7;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   CHECKPOINTS
+===================================================== */
+
+.checkpoint {
+  position: absolute;
+
+  width: 136.5px;
+  height: 143px;
+
+  transform:
+    translate(-50%, -85%);
+
+  z-index: 20;
+
+  transition: 0.2s;
+
+  filter:
+    drop-shadow(
+      0 5px 4px #0006
+    );
+}
+
+.checkpoint img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.checkpoint.active {
+  animation:
+    pulse 1.35s infinite;
+}
+
+.checkpoint.completed {
+  filter:
+    drop-shadow(
+      0 0 8px #ffe26d
+    );
+}
+
+@keyframes pulse {
+  50% {
+    transform:
+      translate(-50%, -85%)
+      scale(1.08);
+
+    filter:
+      drop-shadow(
+        0 0 13px #fff36d
+      );
+  }
+}
+
+
+/* =====================================================
+   HUD
+===================================================== */
+
+#hud {
+  position: absolute;
+
+  z-index: 100;
+
+  left: 50%;
+  top: 10px;
+
+  transform:
+    translateX(-50%);
+
+  width:
+    min(
+      880px,
+      calc(100% - 24px)
+    );
+
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  padding: 6px 18px;
+
+  background: #09283def;
+
+  border:
+    3px solid #6ba6b5;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 5px 0 #04141f99;
+}
+
+.hud-player {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.hud-player img {
+  width: 38px;
+  height: 42px;
+
+  object-fit: contain;
+}
+
+.hud-player div {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.hud-player span {
+  font-size: 11px;
+
+  color: #91afbd;
+
+  font-weight: 900;
+}
+
+.hud-player strong {
+  font-size: 17px;
+}
+
+.hud-score,
+.hud-progress {
+  font-size: 24px;
+
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   MOVEMENT HELP
+===================================================== */
+
+#movementHelp {
+  position: absolute;
+
+  z-index: 100;
+
+  left: 14px;
+  bottom: 14px;
+
+  padding: 10px 14px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  background: #09283def;
+
+  border:
+    3px solid #d8f4f8;
+
+  border-radius: 13px;
+
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   INTERACTION MESSAGE
+===================================================== */
+
+.interaction {
+  position: absolute;
+
+  z-index: 120;
+
+  left: 50%;
+  bottom: 112px;
+
+  transform:
+    translateX(-50%);
+
+  padding: 10px 18px;
+
+  background: #09283df2;
+
+  border:
+    3px solid #fff;
+
+  border-radius: 14px;
+
+  font-weight: 900;
+
+  text-align: center;
+
+  box-shadow:
+    0 6px 20px #0007;
+}
+
+
+/* =====================================================
+   ENTER MISSION BUTTON
+===================================================== */
+
+.interact-btn {
+  position: absolute;
+
+  z-index: 130;
+
+  left: 50%;
+  bottom: 78px;
+
+  transform:
+    translateX(-50%);
+
+  padding: 13px 18px;
+
+  border: 0;
+
+  border-radius: 15px;
+
+  background: #ffd348;
+
+  color: #2a2100;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 0 #9d6515;
+
+  touch-action: manipulation;
+}
+
+
+/* =====================================================
+   D-PAD
+===================================================== */
+
+#dpad {
+  position: absolute;
+
+  z-index: 110;
+
+  right: 18px;
+  bottom: 18px;
+
+  width: 148px;
+  height: 148px;
+}
+
+#dpad button {
+  position: absolute;
+
+  width: 50px;
+  height: 50px;
+
+  border:
+    2px solid #9cc8d5;
+
+  border-radius: 12px;
+
+  background: #09283de8;
+
+  color: #fff;
+
+  font-size: 23px;
+
+  font-weight: 900;
+
+  touch-action: none;
+
+  user-select: none;
+}
+
+.up {
+  left: 49px;
+  top: 0;
+}
+
+.left {
+  left: 0;
+  top: 49px;
+}
+
+.down {
+  left: 49px;
+  top: 98px;
+}
+
+.right {
+  left: 98px;
+  top: 49px;
+}
+
+#dpad button:active,
+#dpad button.pressed {
+  background: #245c77;
+
+  transform:
+    scale(0.94);
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+  position: fixed;
+
+  z-index: 1000;
+
+  inset: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 20px;
+
+  background: #021018bd;
+}
+
+.modal-card {
+  position: relative;
+
+  width:
+    min(500px, 94vw);
+
+  padding: 30px;
+
+  text-align: center;
+
+  background: #f7f1dc;
+
+  color: #18303b;
+
+  border:
+    5px solid #7a4c24;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 20px 80px #000b;
+}
+
+.modal-icon {
+  font-size: 38px;
+
+  line-height: 1;
+
+  margin-bottom: 0;
+}
+
+.modal-card h2 {
+  margin: 3px 8px 5px;
+
+  font-size: 25px;
+}
+
+.modal-card p {
+  font-size: 17px;
+}
+
+.modal-card small {
+  display: block;
+
+  margin-top: 16px;
+
+  color: #667;
+}
+
+.close-btn {
+  position: absolute;
+
+  right: 12px;
+  top: 8px;
+
+  border: 0;
+
+  background: none;
+
+  color: #58371d;
+
+  font-size: 34px;
+
+  cursor: pointer;
+}
+
+
+/* =====================================================
+   ACTIVITY CARD
+===================================================== */
+
+.activity-card {
+  width:
+    min(680px, 95vw);
+
+  max-height: 90vh;
+
+  overflow: auto;
+}
+
+
+/* Misi kecil di bahagian atas */
+
+.activity-mission {
+  margin:
+    0 auto 4px;
+
+  color: #8c6a3e;
+
+  font-size: 14px;
+
+  font-weight: 900;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+
+/* SOALAN menjadi fokus utama */
+
+.activity-question {
+  display: inline-block;
+
+  margin:
+    2px auto 13px;
+
+  padding: 7px 18px;
+
+  color: #fff;
+
+  background: #2c7391;
+
+  border-radius: 999px;
+
+  font-size:
+    clamp(20px, 4vw, 27px);
+
+  font-weight: 900;
+
+  box-shadow:
+    0 4px 0 #19516a;
+}
+
+
+/* Tajuk aktiviti di bawah */
+
+.activity-title {
+  margin:
+    15px auto 4px;
+
+  padding-top: 11px;
+
+  border-top:
+    2px dashed #d5bd98;
+
+  color: #6c4b22;
+
+  font-size: 16px;
+
+  font-weight: 900;
+}
+
+.activity-head {
+  font-weight: 900;
+
+  color: #6c4b22;
+
+  margin: 4px 0 14px;
+}
+
+.activity-actions {
+  display: flex;
+
+  gap: 10px;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  margin: 16px 0;
+}
+
+
+/* =====================================================
+   ACTIVITY BUTTONS
+===================================================== */
+
+.audio-btn,
+.record-btn,
+.next-btn {
+  border: 0;
+
+  border-radius: 13px;
+
+  padding: 13px 18px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.audio-btn {
+  background: #2c7391;
+
+  color: #fff;
+}
+
+.record-btn {
+  background: #d84b52;
+
+  color: #fff;
+}
+
+.record-btn.recording {
+  background: #79272c;
+
+  box-shadow:
+    0 0 0 5px #ffb8bb;
+}
+
+.next-btn {
+  background: #ffd348;
+
+  color: #2a2100;
+}
+
+
+/* =====================================================
+   CHECKPOINT INSTRUCTION SCREEN
+===================================================== */
+
+.instruction-screen {
+  width: 100%;
+
+  text-align: center;
+
+  padding:
+    2px 4px 10px;
+}
+
+.instruction-icon {
+  margin-bottom: 4px;
+
+  font-size: 48px;
+}
+
+.instruction-screen h3 {
+  margin:
+    3px 0 14px;
+
+  color: #6c4b22;
+
+  font-size: 26px;
+}
+
+.instruction-screen p {
+  max-width: 540px;
+
+  margin:
+    0 auto 20px;
+
+  color: #263d46;
+
+  font-size: 18px;
+
+  line-height: 1.55;
+
+  font-weight: 700;
+}
+
+.instruction-screen p strong {
+  color: #176a62;
+
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   CP1 PICTURE OPTIONS
+===================================================== */
+
+.picture-options {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 14px;
+
+  margin: 18px auto;
+
+  max-width: 480px;
+}
+
+.picture-option {
+  min-height: 115px;
+
+  border:
+    4px solid #b98a51;
+
+  border-radius: 18px;
+
+  background: #fffaf0;
+
+  font-size: 64px;
+
+  cursor: pointer;
+}
+
+.picture-option:active {
+  transform:
+    scale(0.96);
+}
+
+
+/* =====================================================
+   FEEDBACK
+===================================================== */
+
+.feedback {
+  min-height: 34px;
+
+  margin: 12px 0;
+
+  font-size: 18px;
+
+  font-weight: 900;
+}
+
+.feedback.good {
+  color: #188048;
+}
+
+.feedback.bad {
+  color: #b34835;
+}
+
+
+/* =====================================================
+   CP2 DRAG AND DROP
+===================================================== */
+
+.kitchen {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 18px;
+
+  align-items: center;
+
+  margin: 18px 0;
+}
+
+.drag-zone,
+.drop-zone {
+  min-height: 170px;
+
+  padding: 14px;
+
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  border:
+    4px dashed #b98a51;
+
+  border-radius: 18px;
+
+  background: #fffaf0;
+}
+
+.drag-item {
+  padding: 8px;
+
+  background: #fff;
+
+  border:
+    2px solid #d5bd98;
+
+  border-radius: 14px;
+
+  font-size: 52px;
+
+  cursor: grab;
+
+  touch-action: none;
+
+  transition: 0.15s;
+}
+
+.drag-item.selected {
+  border-color: #2c7391;
+
+  background: #dff5ff;
+
+  transform:
+    scale(1.08);
+
+  box-shadow:
+    0 0 0 4px #87cbe5;
+}
+
+.drop-zone {
+  font-size: 70px;
+}
+
+
+/* =====================================================
+   SPEECH / TRANSCRIPT
+===================================================== */
+
+.transcript {
+  min-height: 74px;
+
+  padding: 14px;
+
+  border:
+    3px solid #91aeb7;
+
+  border-radius: 14px;
+
+  background: #fff;
+
+  color: #17303b;
+
+  font-weight: 800;
+
+  text-align: left;
+
+  line-height: 1.45;
+}
+
+.status-line {
+  min-height: 24px;
+
+  margin-top: 8px;
+
+  color: #7c3034;
+
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   MICROPHONE INDICATOR
+===================================================== */
+
+.mic-indicator {
+  width:
+    min(420px, 100%);
+
+  margin:
+    10px auto;
+
+  padding:
+    10px 14px;
+
+  border:
+    2px solid #91aeb7;
+
+  border-radius: 12px;
+
+  background: #edf6f8;
+
+  color: #38525d;
+
+  font-weight: 900;
+
+  transition: 0.2s;
+}
+
+.mic-indicator.active {
+  border-color: #45a86c;
+
+  background: #e5f8ec;
+
+  color: #18784b;
+
+  box-shadow:
+    0 0 0 4px #bce9cb;
+}
+
+
+/* =====================================================
+   CP4 GOODS
+===================================================== */
+
+.goods {
+  margin:
+    12px 0;
+
+  font-size: 48px;
+
+  letter-spacing: 12px;
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+.result-card {
+  width:
+    min(560px, 94vw);
+}
+
+.trophy {
+  font-size: 70px;
+}
+
+.result-score {
+  color: #8a5c00;
+
+  font-size: 28px;
+
+  font-weight: 900;
+}
+
+.result-cheer {
+  color: #18784b;
+
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   TABLET / SMALL SCREEN
+===================================================== */
+
+@media (max-width: 700px) {
+
+  #hud {
+    height: 54px;
+
+    padding: 5px 10px;
+  }
+
+  .hud-player span {
+    display: none;
+  }
+
+  .hud-score,
+  .hud-progress {
+    font-size: 18px;
+  }
+
+  #movementHelp {
+    display: none;
+  }
+
+  .checkpoint {
+    width: 117px;
+
+    height: 124.8px;
+  }
+
+  #dpad {
+    transform:
+      scale(0.86);
+
+    transform-origin:
+      right bottom;
+  }
+
+  .start-decor-1 {
+    left: -4%;
+  }
+}
+
+
+/* =====================================================
+   SMALL ACTIVITY SCREEN
+===================================================== */
+
+@media (max-width: 560px) {
+
+  .start-card {
+    padding:
+      26px 18px;
+  }
+
+  .name-box {
+    padding:
+      15px 13px;
+  }
+
+  .picture-option {
+    font-size: 50px;
+  }
+
+  .kitchen {
+    grid-template-columns:
+      1fr;
+  }
+
+  .activity-card {
+    padding:
+      24px 16px;
+  }
+
+  .prep-card {
+    padding:
+      22px 16px;
+  }
+
+  .prep-list {
+    padding:
+      8px 12px;
+  }
+
+  .prep-list p {
+    font-size: 15px;
+  }
+
+  .instruction-screen p {
+    font-size: 16px;
+  }
+
+  .activity-question {
+    font-size: 20px;
+  }
+}
+
+
+/* =====================================================
+   TOUCH DEVICES
+===================================================== */
+
+@media (pointer: coarse),
+(max-width: 900px) {
+
+  #dpad {
+    display: block;
+  }
+
+  .interact-btn {
+    display: block;
+  }
+
+  .interaction {
+    bottom: 145px;
+
+    max-width:
+      calc(100% - 30px);
+
+    font-size: 13px;
+  }
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media (pointer: fine)
+and (min-width: 901px) {
+
+  .interact-btn {
+    display: none !important;
+  }
+}
+
+
+/* =====================================================
+   MOBILE PORTRAIT
+===================================================== */
+
+@media (orientation: portrait)
+and (max-width: 700px) {
+
+  #hud {
+    top: 8px;
+
+    width:
+      calc(100% - 16px);
+
+    height: 50px;
+
+    padding:
+      4px 8px;
+
+    border-width: 2px;
+  }
+
+  .hud-player img {
+    width: 31px;
+
+    height: 35px;
+  }
+
+  .hud-player strong {
+    font-size: 14px;
+  }
+
+  .hud-score,
+  .hud-progress {
+    font-size: 16px;
+  }
+
+  #dpad {
+    right: 10px;
+
+    bottom: 12px;
+
+    transform:
+      scale(0.82);
+
+    transform-origin:
+      right bottom;
+  }
+
+  .interact-btn {
+    left: 14px;
+
+    bottom: 28px;
+
+    transform: none;
+
+    padding:
+      12px 14px;
+
+    font-size: 13px;
+  }
+
+  .interaction {
+    bottom: 145px;
+
+    padding:
+      8px 12px;
+
+    font-size: 12px;
+  }
+
+  .checkpoint {
+    width: 106.6px;
+
+    height: 114.4px;
+  }
+
+  #player {
+    width: 52px;
+
+    height: 70px;
+  }
+
+  #playerSprite {
+    width: 52px;
+
+    height: 64px;
+  }
+
+  #playerName {
+    bottom: 64px;
+
+    font-size: 10px;
+  }
+
+  .modal {
+    padding: 8px;
+
+    align-items: center;
+  }
+
+  .modal-card {
+    width: 96vw;
+
+    max-height: 92dvh;
+
+    padding:
+      22px 13px;
+
+    border-width: 4px;
+  }
+
+  .modal-icon {
+    font-size: 29px;
+  }
+
+  .modal-card h2 {
+    font-size: 21px;
+
+    margin:
+      2px 5px 4px;
+  }
+
+  .activity-mission {
+    font-size: 12px;
+  }
+
+  .activity-question {
+    margin-bottom: 9px;
+
+    padding:
+      6px 15px;
+
+    font-size: 19px;
+  }
+
+  .activity-title {
+    margin-top: 10px;
+
+    font-size: 14px;
+  }
+
+  .picture-options {
+    gap: 8px;
+  }
+
+  .picture-option {
+    min-height: 88px;
+
+    font-size: 44px;
+  }
+
+  .drag-zone,
+  .drop-zone {
+    min-height: 125px;
+  }
+
+  .drag-item {
+    font-size: 42px;
+  }
+
+  .drop-zone {
+    font-size: 55px;
+  }
+
+  .instruction-icon {
+    font-size: 40px;
+  }
+
+  .instruction-screen h3 {
+    font-size: 22px;
+  }
+
+  .instruction-screen p {
+    font-size: 15px;
+
+    line-height: 1.45;
+  }
+
+  .mic-indicator {
+    font-size: 14px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE LANDSCAPE
+===================================================== */
+
+@media (orientation: landscape)
+and (max-height: 600px) {
+
+  #hud {
+    top: 6px;
+
+    height: 46px;
+
+    width:
+      min(
+        720px,
+        calc(100% - 170px)
+      );
+
+    padding:
+      3px 10px;
+  }
+
+  .hud-player img {
+    width: 28px;
+
+    height: 32px;
+  }
+
+  .hud-player strong {
+    font-size: 13px;
+  }
+
+  .hud-score,
+  .hud-progress {
+    font-size: 16px;
+  }
+
+  #dpad {
+    right: 10px;
+
+    bottom: 8px;
+
+    transform:
+      scale(0.72);
+
+    transform-origin:
+      right bottom;
+  }
+
+  .interact-btn {
+    left: 12px;
+
+    bottom: 14px;
+
+    transform: none;
+
+    padding:
+      10px 12px;
+
+    font-size: 12px;
+  }
+
+  .interaction {
+    bottom: 70px;
+
+    padding:
+      7px 11px;
+
+    font-size: 12px;
+  }
+
+  .modal {
+    padding: 6px;
+  }
+
+  .modal-card {
+    max-height: 96dvh;
+
+    padding:
+      12px 18px;
+  }
+
+  .modal-icon {
+    font-size: 24px;
+  }
+
+  .modal-card h2 {
+    margin: 1px 3px 3px;
+
+    font-size: 19px;
+  }
+
+  .activity-mission {
+    margin-bottom: 2px;
+
+    font-size: 11px;
+  }
+
+  .activity-question {
+    margin-bottom: 6px;
+
+    padding:
+      4px 14px;
+
+    font-size: 17px;
+
+    box-shadow:
+      0 3px 0 #19516a;
+  }
+
+  .activity-title {
+    margin-top: 7px;
+
+    padding-top: 7px;
+
+    font-size: 13px;
+  }
+
+  .activity-actions {
+    margin:
+      8px 0;
+  }
+
+  .picture-option {
+    min-height: 72px;
+
+    font-size: 40px;
+  }
+
+  .kitchen {
+    margin:
+      8px 0;
+  }
+
+  .drag-zone,
+  .drop-zone {
+    min-height: 92px;
+  }
+
+  .drag-item {
+    font-size: 36px;
+  }
+
+  .drop-zone {
+    font-size: 48px;
+  }
+
+  .transcript {
+    min-height: 54px;
+
+    padding: 9px;
+  }
+
+  .feedback {
+    min-height: 26px;
+
+    margin:
+      6px 0;
+  }
+
+  .instruction-icon {
+    margin-bottom: 2px;
+
+    font-size: 31px;
+  }
+
+  .instruction-screen h3 {
+    margin:
+      2px 0 8px;
+
+    font-size: 20px;
+  }
+
+  .instruction-screen p {
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    line-height: 1.35;
+  }
+
+  .mic-indicator {
+    margin:
+      5px auto;
+
+    padding:
+      7px 10px;
+
+    font-size: 13px;
+  }
+
+  .prep-screen {
+    padding: 6px;
+  }
+
+  .prep-card {
+    width:
+      min(720px, 96vw);
+
+    max-height: 96dvh;
+
+    padding:
+      12px 20px;
+  }
+
+  .prep-icon {
+    font-size: 31px;
+  }
+
+  .prep-card h2 {
+    margin:
+      1px 0 5px;
+
+    font-size: 21px;
+  }
+
+  .prep-list {
+    margin:
+      6px 0;
+
+    padding:
+      3px 12px;
+  }
+
+  .prep-list p {
+    margin:
+      6px 0;
+
+    font-size: 12px;
+  }
+
+  .mic-test-box {
+    margin-top: 7px;
+
+    padding: 9px;
+  }
+
+  .mic-test-box h3 {
+    font-size: 17px;
+  }
+
+  .mic-test-box p {
+    margin:
+      3px 0 7px;
+
+    font-size: 12px;
+  }
+
+  .mic-test-status {
+    margin:
+      6px 0 2px;
+
+    font-size: 12px;
+  }
+
+  .prep-ready {
+    margin-top: 7px;
+  }
+
+  .start-card {
+    width:
+      min(600px, 90vw);
+
+    padding:
+      16px 25px;
+  }
+
+  .start-card h1 {
+    margin-top: 10px;
+
+    font-size:
+      clamp(28px, 7vh, 42px);
+  }
+
+  .tagline {
+    margin:
+      5px 0 10px;
+  }
+
+  .name-box {
+    padding:
+      10px 15px;
+  }
+
+  .start-card input {
+    padding:
+      9px 13px;
+  }
+
+  .error {
+    min-height: 17px;
+
+    margin:
+      3px 0;
+  }
+}
+/* =====================================================
+   KEMAS KINI PAPARAN SOALAN
+===================================================== */
+
+/* Ruang penuh setiap soalan */
+.question-page {
+  width: 100%;
+  border-radius: 20px;
+  padding: 16px 18px 20px;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+/* SOALAN 1 — krim / putih lembut */
+.question-page.question-1,
+.question-page.question-2,
+.question-page.question-3 {
+  background-color: #ffffff;
+}
+
+/* =====================================================
+   LABEL MISI
+===================================================== */
+
+.activity-mission {
+  display: block;
+  width: fit-content;
+
+  margin: 0 0 6px 0;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  text-align: left;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  color: #53606d;
+}
+
+
+/* =====================================================
+   NOMBOR SOALAN
+===================================================== */
+
+.activity-question {
+  display: block;
+
+  width: 100%;
+  margin: 2px 0 15px;
+  padding: 0;
+
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  text-align: center;
+
+  font-size: 23px;
+  font-weight: 900;
+
+  color: #263238;
+}
+
+
+/* =====================================================
+   TAJUK AKTIVITI
+===================================================== */
+
+.activity-title {
+  margin-top: 13px;
+
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #52606d;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .question-page {
+    padding: 12px 12px 16px;
+    border-radius: 16px;
+  }
+
+  .activity-mission {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .activity-question {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .activity-title {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+
+/* MISI kecil di sebelah kiri */
+.activity-mission {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  width: fit-content;
+  padding: 0;
+  margin: 0 0 5px 0;
+
+  text-align: left;
+  font-size: 13px;
+  font-weight: 800;
+  color: #263238;
+}
+
+/* SOALAN tanpa kotak */
+.activity-question {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  padding: 0;
+  margin: 3px 0 16px;
+
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  color: #263238;
+}
+
+/* Tajuk aktiviti di bawah */
+.activity-title {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #37474f;
+}
+/* Jadikan kotak soalan warna putih */
+.question-page {
+  background: white !important;
+}
+/* =========================================
+   WARNA BACKGROUND LUAR MENGIKUT SOALAN
+========================================= */
+
+#activityArea.outer-question-1 {
+  background-color: #E889B3 !important;
+}
+
+#activityArea.outer-question-2 {
+  background-color: #79A6DC !important;
+}
+
+#activityArea.outer-question-3 {
+  background-color: #EBCF68 !important;
+}
+
+/* Kotak aktiviti dalam kekal putih */
+#activityArea .question-page {
+  background: #ffffff !important;
+}
+/* =====================================================
+   FONT KEMBARA PETARA
+   SAMA UNTUK LAPTOP + ANDROID + IPHONE + IPAD
+===================================================== */
+
+html,
+body,
+body *,
+button,
+input,
+textarea,
+select,
+option {
+    font-family: "Comic Neue", "Comic Sans MS", sans-serif !important;
+}
+
+
+/* Moving direction guide for the current mission — KSP-V2 only */
+#missionGuideArrow {
+  position: absolute;
+  width: 100px;
+  height: 38px;
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 35;
+  pointer-events: none;
+  transform-origin: center center;
+  filter: drop-shadow(0 0 7px rgba(255,42,42,.95)) drop-shadow(0 0 15px rgba(255,42,42,.65)) drop-shadow(0 3px 3px rgba(0,0,0,.7));
+  animation: missionArrowGlow 1.35s ease-in-out infinite alternate;
+}
+@keyframes missionArrowGlow {
+  from { filter: drop-shadow(0 0 4px rgba(255,65,65,.8)) drop-shadow(0 2px 3px #000b); }
+  to { filter: drop-shadow(0 0 11px rgba(255,35,35,1)) drop-shadow(0 0 20px rgba(255,35,35,.85)) drop-shadow(0 2px 3px #000b); }
+}
+#missionGuideArrow .mission-guide-shaft {
+  width: 65px;
+  height: 15px;
+  margin-left: 2px;
+  background: linear-gradient(180deg,#ff6666,#ed1010 65%,#b90000);
+  border: 3px solid #fff;
+  border-right: 0;
+  border-radius: 9px 0 0 9px;
+  box-sizing: border-box;
+}
+#missionGuideArrow .mission-guide-head {
+  width: 0;
+  height: 0;
+  border-top: 19px solid transparent;
+  border-bottom: 19px solid transparent;
+  border-left: 34px solid #f01919;
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(0 0 5px #ff7777);
+}
+
+/* Reminder after each mission's main instructions */
+.petara-reminder {
+  background: linear-gradient(160deg,#d9eeff,#a7d6ff);
+  border: 3px solid #5caceb;
+  border-radius: 22px;
+  padding: 24px 18px 26px;
+  box-shadow: inset 0 2px 12px #ffffff9c;
+}
+.petara-reminder h3 { color:#13538b; }
+.petara-reminder p { color:#163f65; }
+.petara-reminder .instruction-icon { font-size: 55px; }
+.result-score #resultScore { font-size:clamp(30px,5vw,55px); letter-spacing:4px; }
+
+/* KSP-V2: central clickable start overlay after successful microphone test */
+.start-journey-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(5, 12, 28, 0.68);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.start-journey-overlay.hidden { display: none !important; }
+.start-journey-button {
+  display: block;
+  position: relative;
+  width: min(86vw, 350px);
+  min-height: 68px;
+  padding: 16px 20px;
+  font-size: clamp(16px, 3.6vw, 23px);
+  font-weight: 900;
+  border-radius: 24px;
+  box-shadow: 0 15px 45px rgba(0,0,0,.35);
+  animation: journeyStartAppear .25s ease-out both;
+  cursor: pointer;
+}
+@keyframes journeyStartAppear {
+  from { opacity: 0; transform: scale(.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* KSP-V2 NIGHT ADVENTURE HOME ONLY — all other screens untouched */
+#startScreen.start-screen {
+  min-height: 100dvh;
+  padding: clamp(12px, 3vh, 28px);
+  background: radial-gradient(ellipse at 50% 27%,#293e78 0%,#182b5b 39%,#0b1638 73%,#070f27 100%);
+  isolation: isolate;
+}
+#startScreen.start-screen::before {
+  left:-10%;right:-10%;bottom:-90px;height:210px;
+  background:linear-gradient(180deg,#18345b,#081b36);
+  border-radius:55% 55% 0 0;opacity:1;z-index:0;
+}
+#startScreen .night-stars {
+  position:absolute;inset:0;pointer-events:none;opacity:.9;
+  background-image:
+    radial-gradient(2px 2px at 8% 12%,#fff 99%,transparent),
+    radial-gradient(3px 3px at 19% 32%,#ffeeb1 99%,transparent),
+    radial-gradient(2px 2px at 33% 8%,#fff 99%,transparent),
+    radial-gradient(2px 2px at 58% 19%,#fff 99%,transparent),
+    radial-gradient(3px 3px at 77% 11%,#ffde87 99%,transparent),
+    radial-gradient(2px 2px at 92% 30%,#fff 99%,transparent),
+    radial-gradient(2px 2px at 11% 71%,#fff 99%,transparent),
+    radial-gradient(3px 3px at 88% 76%,#fff 99%,transparent);
+  background-size: 100% 100%;
+  animation: nightTwinkle 4s ease-in-out infinite alternate;
+}
+@keyframes nightTwinkle {from{opacity:.45}to{opacity:1}}
+#startScreen .night-moon {
+  position:absolute;right:10%;top:9%;width:75px;height:75px;border-radius:50%;
+  background:#ffedb2;box-shadow:0 0 36px 13px #fff0ac3d;
+}
+#startScreen .night-castle {position:absolute;left:5%;bottom:7%;font-size:clamp(62px,10vw,125px);opacity:.35;filter:brightness(.5)}
+#startScreen .night-tree {position:absolute;bottom:3%;font-size:clamp(50px,9vw,110px);opacity:.55;filter:brightness(.5)}
+#startScreen .night-tree-left{left:0}
+#startScreen .night-tree-right{right:0}
+#startScreen .start-card {
+  width:min(520px,94vw);max-height:calc(100dvh - 22px);overflow-y:auto;
+  padding:clamp(16px,3vh,28px) clamp(17px,4vw,30px);
+  border:2px solid #8ca6e2;border-radius:26px;
+  background:linear-gradient(160deg,rgba(29,46,91,.93),rgba(14,28,63,.95));
+  color:#fff;box-shadow:0 15px 40px #0008,0 0 35px #8aa7ff20;
+}
+#startScreen .start-logo {display:block;width:min(100%,410px);max-height:42dvh;object-fit:contain;margin:0 auto 12px;filter:drop-shadow(0 9px 10px #0007)}
+#startScreen .name-box {
+  padding:clamp(12px,2vh,18px);border:2px solid #cfae67;border-radius:20px;
+  background:linear-gradient(180deg,#fff6dc,#f6e6bf);
+}
+#startScreen .start-card label{color:#24365c;text-align:center;font-size:clamp(17px,3.2vw,21px)}
+#startScreen .start-card input{border:2px solid #ad92d4;background:#fffdf7;color:#233451;text-align:center}
+#startScreen #startBtn{width:100%;font-size:clamp(17px,3vw,22px)}
+@media(max-height:650px){#startScreen .start-logo{max-height:32dvh}#startScreen .start-card{padding:12px 18px}}
+
+/* iPhone portrait: center the landing card within the visible viewport */
+@media (max-width: 600px) and (orientation: portrait) {
+  #startScreen.start-screen {
+    height: 100dvh;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+  #startScreen .start-card {
+    flex: 0 1 auto;
+    width: min(100%, 430px);
+    max-height: calc(100dvh - 24px);
+    margin: auto;
+    padding: clamp(12px, 2.2dvh, 22px) 15px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #startScreen .start-logo {
+    width: min(100%, 340px);
+    max-height: min(36dvh, 300px);
+    margin: 0 auto 10px;
+  }
+  #startScreen .name-box { padding: 12px; }
+  #startScreen .start-card input { padding: 11px 12px; }
+  #startScreen #startBtn { padding: 12px 16px; }
+}
+@media (max-width: 600px) and (orientation: portrait) and (max-height: 700px) {
+  #startScreen .start-logo { max-height: 29dvh; }
+  #startScreen .start-card { padding: 10px 14px; }
+  #startScreen .name-box { padding: 10px; }
+}
+
+/* Penamat: use the castle already drawn on the map; hide only its duplicate sign graphic. */
+#cpLayer .checkpoint[data-cp="finish"] img { visibility: hidden !important; }
+
+/* KSP-V2: bold all three pre-game instructions and highlight key phrases */
+#prepScreen .prep-list p { font-weight: 900 !important; }
+#prepScreen .prep-list .prep-emphasis { color: #d61b28 !important; font-weight: 900 !important; }
+
+/* KSP-V2: one prominent centered mission-start button on all screen sizes */
+#gameScreen .interact-btn {
+  left: 50%;
+  top: 50%;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  min-width: 185px;
+  max-width: calc(100vw - 32px);
+  padding: 17px 26px;
+  border: 3px solid #fff8d5;
+  border-radius: 19px;
+  background: linear-gradient(180deg, #ff697a, #eb1739 70%, #b50026);
+  color: #ffffff;
+  font-size: clamp(17px, 2.5vw, 23px);
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 5px 0 #8c0a23, 0 0 15px #ff3656, 0 0 28px #ff365699;
+  animation: missionStartGlow 1.5s ease-in-out infinite alternate;
+}
+@keyframes missionStartGlow {
+  from { box-shadow: 0 5px 0 #8c0a23, 0 0 9px #ff3656, 0 0 17px #ff365666; }
+  to { box-shadow: 0 5px 0 #8c0a23, 0 0 20px #ff697a, 0 0 38px #ff3656bb; }
+}
+
+/* Fix: anchor the single mission button to the visible game screen on every device.
+   Earlier desktop and portrait rules were hiding/repositioning it. */
+#gameScreen > #interactBtn.interact-btn:not(.hidden) {
+  display: block !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 250 !important;
+  animation: none !important;
+  box-shadow: 0 5px 0 #ad7414, 0 0 15px #ffde6d, 0 0 26px #ffd04c99 !important;
+}
+
+/* Language and visual polish: instruction highlights, gentle question colours */
+.instruction-screen p strong,
+.petara-reminder p strong { color: #d32232 !important; font-weight: 900; }
+#activityArea.outer-question-1 { background-color: #f9d9e7 !important; }
+#activityArea.outer-question-2 { background-color: #c9dff5 !important; }
+#activityArea.outer-question-3 { background-color: #f8e9b4 !important; }
+.petara-reminder { background: linear-gradient(160deg,#eaf5ff,#d9eafa) !important; border-color:#9bc6e8 !important; }
+/* Vary answer placement without changing answer order or drag behaviour */
+.question-page.mission-1.question-1 .picture-options { margin-left: auto; margin-right: auto; }
+.question-page.mission-1.question-2 .picture-options { margin-left: auto; margin-right: auto; }
+.question-page.mission-2.question-1 .kitchen { max-width: 90%; margin-left: auto; margin-right: auto; }
+.question-page.mission-2.question-2 .kitchen { max-width: 90%; margin-left: auto; margin-right: 0; }
+@media (max-width: 700px) {
+  .question-page.mission-1 .picture-options,
+  .question-page.mission-2 .kitchen { max-width: 100%; margin-left: auto; margin-right: auto; }
+}
+
+/* Disable accidental long-press text selection throughout the game.
+   Keep name-entry fields editable for normal typing. */
+html, body, body *:not(input):not(textarea):not([contenteditable="true"]) {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+button, #dpad, #dpad button {
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS Safari: stop long-press text selection and callouts on the entire D-pad. */
+#dpad, #dpad *, #dpad button {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+  touch-action: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* 2026-11: mission start, differentiated question cards and tactile buttons */
+#gameScreen > #interactBtn.interact-btn:not(.hidden) {
+  color: #fff !important;
+  background: linear-gradient(180deg,#ff5364,#db142f 65%,#a90922) !important;
+  border-color: #ffe1e5 !important;
+  text-shadow: 0 1px 2px #680016 !important;
+  box-shadow: 0 6px 0 #850c20,0 0 20px #ff274c,0 0 38px #ff496d99 !important;
+  animation: petaraRedGlow 1.4s ease-in-out infinite alternate !important;
+}
+@keyframes petaraRedGlow {
+  from { box-shadow: 0 6px 0 #850c20,0 0 12px #ff274c,0 0 24px #ff496d77; }
+  to { box-shadow: 0 6px 0 #850c20,0 0 26px #ff274c,0 0 48px #ff496dcc; }
+}
+#activityArea .question-page.question-1 { background: #fce1ee !important; }
+#activityArea .question-page.question-2 { background: #dceeff !important; }
+#activityArea .audio-btn, #activityArea .record-btn {
+  border: 2px solid #ffffffaa;
+  border-radius: 15px;
+  box-shadow: 0 5px 0 #14516b,0 9px 15px #1b405344;
+  transition: transform .12s ease, box-shadow .12s ease;
+  font-weight: 900;
+  touch-action: manipulation;
+}
+#activityArea .record-btn { box-shadow: 0 5px 0 #922b44,0 9px 15px #5b1e3544; }
+#activityArea .audio-btn:active, #activityArea .record-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #444,0 3px 6px #0003; }
+#activityArea .drag-item { touch-action: none; user-select: none; }
+.drag-ghost { position: fixed; z-index: 20000; pointer-events: none; transform: translate(-50%,-50%); opacity: .88; font-size: 52px; background: #fff6; border: 2px solid #d5bd98; border-radius: 14px; padding: 8px; }
+#activityArea .drop-zone.drag-over { background: #dff5ff; border-color: #2783b1; }
+
+/* Final override: explicit red mission prompt, including mobile breakpoints */
+#gameScreen #interactBtn.interact-btn:not(.hidden) {
+  background: linear-gradient(180deg,#ff6571 0%,#e61d3c 55%,#b60827 100%) !important;
+  background-color: #e61d3c !important;
+  color: #ffffff !important;
+  border: 3px solid #ffe1e5 !important;
+  box-shadow: 0 5px 0 #8c0a23,0 0 18px #ff3656,0 0 32px #ff365699 !important;
+  animation: petaraRedGlow 1.4s ease-in-out infinite alternate !important;
+}
+
+/* Mission HOME and confirmation dialog — shared by all checkpoints/questions */
+#checkpointModal .activity-card { position: relative; }
+#checkpointModal .mission-home-btn {
+  position: absolute; top: 15px; left: 16px; z-index: 5;
+  padding: 9px 13px; border: 2px solid #b68d5b; border-radius: 12px;
+  background: linear-gradient(#fffdf5,#f3e0b8); color: #66401e;
+  font-weight: 900; font-size: 14px; cursor: pointer;
+  box-shadow: 0 4px 0 #9d794c, 0 6px 10px #0002;
+  touch-action: manipulation;
+}
+#checkpointModal .mission-home-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #9d794c; }
+#missionHomeConfirm { z-index: 99999; }
+#missionHomeConfirm .mission-home-confirm-card { max-width: 410px; width: min(92vw,410px); padding: 28px 20px; text-align: center; }
+#missionHomeConfirm .mission-home-confirm-icon { font-size: 40px; color: #8b633c; }
+#missionHomeConfirm h2 { font-size: clamp(19px,4vw,25px); margin: 10px 0; }
+#missionHomeConfirm p { font-size: 15px; margin-bottom: 22px; }
+#missionHomeConfirm .mission-home-confirm-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+#missionHomeConfirm .mission-home-confirm-actions button { border: 0; border-radius: 12px; padding: 12px 18px; font-weight: 900; cursor: pointer; }
+#missionHomeConfirm .mission-home-cancel { background: #e5e5e5; color: #333; }
+#missionHomeConfirm .mission-home-yes { background: #287d9f; color: white; }
+
+/* Icon-only HOME: top-left corner aligned with the close control */
+#checkpointModal .mission-home-btn {
+  top: 8px !important; left: 8px !important;
+  width: 42px !important; height: 42px !important;
+  padding: 0 !important; display: flex !important;
+  align-items: center !important; justify-content: center !important;
+  font-size: 23px !important; line-height: 1 !important;
+}
+
+/* Same strong breathing motion as the active mission signs */
+@keyframes petaraMissionPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 7px #ff3757); }
+  50% { transform: translate(-50%, -50%) scale(1.16); filter: drop-shadow(0 0 20px #ff3757); }
+}
+#gameScreen #interactBtn.interact-btn:not(.hidden) {
+  animation: petaraMissionPulse 1.35s ease-in-out infinite !important;
+  transform-origin: center center;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  #gameScreen #interactBtn.interact-btn:not(.hidden) { animation: none !important; transform: translate(-50%, -50%) !important; }
+}
+
+
+/* KSP-V2: Choose the same character on the start screen and in the world. */
+.avatar-choice {width:100%;margin:12px auto 10px;text-align:center;}
+.avatar-choice-title {font-weight:900;color:#fceab3;margin:0 0 9px;text-shadow:0 2px 2px #102941;}
+.avatar-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%;}
+.avatar-option {min-width:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;padding:6px 3px;border:3px solid #9ac6dc;border-radius:12px;background:#f5eed9;color:#213e55;cursor:pointer;box-shadow:0 3px 0 #183955;transition:transform .12s,border-color .12s,background .12s;}
+.avatar-option img {display:block;width:44px;height:54px;object-fit:contain;image-rendering:pixelated;}
+.avatar-option span {font:800 10px/1.2 sans-serif;min-height:24px;display:flex;align-items:center;justify-content:center;text-align:center;}
+.avatar-option.selected,.avatar-option[aria-pressed="true"] {border-color:#f4bd37;background:#fff5bf;box-shadow:0 0 0 2px #fff1b0,0 3px 0 #8e641e;transform:translateY(-1px);}
+.avatar-option:focus-visible {outline:3px solid #fff;outline-offset:3px;}
+.avatar-option.selected::after{content:"✓";color:#167e50;font-weight:900;position:absolute;align-self:flex-end;margin-right:5px;margin-top:-62px;}
+#avatarError {margin:5px 0 0;font-size:12px;}
+#playerSprite.avatar-walking {animation:kspAvatarWalk .26s ease-in-out infinite alternate;image-rendering:pixelated;}
+@keyframes kspAvatarWalk {from{transform:translateX(-50%) translateY(0)}to{transform:translateX(-50%) translateY(-3px)}}
+@media(max-width:420px){.avatar-grid{gap:5px}.avatar-option img{width:37px;height:46px}.avatar-option span{font-size:9px;min-height:23px}.avatar-option{padding:4px 2px}}
+
+/* Ensure all six avatar choices and the Play button remain reachable on short screens. */
+.start-screen {overflow-x:hidden;overflow-y:auto;align-content:center;}
+.start-card {margin:12px auto;}
+.avatar-option {position:relative;}
+.avatar-option.selected::after {position:absolute;right:5px;top:3px;margin:0;}
+.avatar-choice-title {color:#275c4b;text-shadow:none;}
+@media(max-height:720px){
+ .start-screen {align-content:start;padding:10px;}
+ .start-card {padding:12px 16px;margin:auto;}
+ .name-box {padding:10px;}
+ .avatar-option img {height:43px;width:37px;}
+ .avatar-choice {margin:6px auto;}
+ .start-card input {padding:9px 12px;}
+ .primary-btn {padding:10px 16px;}
+}
+
+
+/* Approved original illustrated explorer avatars (one shared image atlas).
+   Each preview uses the EXACT same character artwork as the map sprite. */
+.avatar-choice .avatar-grid {grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.avatar-choice .avatar-option {padding:8px 4px;min-height:105px;position:relative;overflow:hidden;}
+.avatar-choice .avatar-art {
+  display:block!important;
+  flex:none;
+  min-height:0;
+  width:64px;
+  height:82px;
+  background-image:url("assets/avatars/approved-explorers-atlas.svg");
+  background-repeat:no-repeat;
+  background-size:384px 410px;
+  image-rendering:auto;
+}
+.avatar-choice [data-avatar="boy1"] .avatar-art {background-position:0 0;}
+.avatar-choice [data-avatar="boy2"] .avatar-art {background-position:-64px 0;}
+.avatar-choice [data-avatar="girl1"] .avatar-art {background-position:-128px 0;}
+.avatar-choice [data-avatar="girl2"] .avatar-art {background-position:-192px 0;}
+.avatar-choice [data-avatar="teacherM"] .avatar-art {background-position:-256px 0;}
+.avatar-choice [data-avatar="teacherF"] .avatar-art {background-position:-320px 0;}
+.avatar-choice .avatar-option.selected::after {top:4px;right:6px;}
+#playerSprite {image-rendering:auto;}
+@media(max-width:420px), (max-height:690px) {
+ .avatar-choice .avatar-grid {gap:5px;}
+ .avatar-choice .avatar-option {min-height:81px;padding:5px 2px;}
+ .avatar-choice .avatar-art {width:52px;height:67px;background-size:312px 335px;}
+ .avatar-choice [data-avatar="boy1"] .avatar-art {background-position:0 0;}
+ .avatar-choice [data-avatar="boy2"] .avatar-art {background-position:-52px 0;}
+ .avatar-choice [data-avatar="girl1"] .avatar-art {background-position:-104px 0;}
+ .avatar-choice [data-avatar="girl2"] .avatar-art {background-position:-156px 0;}
+ .avatar-choice [data-avatar="teacherM"] .avatar-art {background-position:-208px 0;}
+ .avatar-choice [data-avatar="teacherF"] .avatar-art {background-position:-260px 0;}
+}
+
+/* Avatar hotfix: no broken-image outline, pixel-perfect atlas cropping. */
+#playerSprite {
+  width:50px !important;
+  height:62px !important;
+  object-fit:fill !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  background-color:transparent !important;
+  background-clip:padding-box;
+  image-rendering:auto;
+  -webkit-user-drag:none;
+  user-select:none;
+}
+#hud .hud-player img {
+  width:36px !important;
+  height:42px !important;
+  object-fit:fill !important;
+  border:0 !important;
+  outline:0 !important;
+}
+.remote-player img {
+  width:50px !important;
+  height:62px !important;
+  object-fit:fill !important;
+  border:0 !important;
+  outline:0 !important;
+  background-color:transparent !important;
+}
+#player, .remote-player {outline:0 !important; border:0 !important; background:transparent !important;}
+
+
+/* Home-screen-only star field and subtle creator signature. */
+#startScreen.start-screen {
+  position: relative;
+  isolation: isolate;
+}
+#startScreen.start-screen::before {
+  /* Remove former hill-like overshadow layer without changing the night palette. */
+  display: none !important;
+}
+#startScreen .night-moon,
+#startScreen .night-castle,
+#startScreen .night-tree,
+#startScreen .start-decor {
+  display: none !important;
+}
+#startScreen .night-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .61;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.92) 1.3px, transparent 1.7px),
+    radial-gradient(circle, rgba(255,239,190,.88) 1.1px, transparent 1.6px),
+    radial-gradient(circle, rgba(198,222,255,.9) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255,255,255,.72) 1.8px, transparent 2.4px),
+    radial-gradient(circle, rgba(255,251,228,.78) 1px, transparent 1.5px);
+  background-size: 81px 89px, 133px 127px, 163px 159px, 211px 197px, 109px 137px;
+  background-position: 8px 14px, 37px 72px, 83px 29px, 117px 103px, 52px 11px;
+  animation: nightTwinkle 5.5s ease-in-out infinite alternate;
+}
+#startScreen .start-card {
+  position: relative;
+  z-index: 5;
+}
+#startScreen .start-credit {
+  position: absolute;
+  bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  left: max(14px, env(safe-area-inset-left, 0px));
+  z-index: 6;
+  pointer-events: none;
+  max-width: calc(100% - 28px);
+  font: 700 clamp(12px, 2vw, 14px)/1.3 "Comic Sans MS", "Comic Sans", cursive;
+  letter-spacing: .35px;
+  color: rgba(241,245,255,.76);
+  text-shadow: 0 1px 4px rgba(2,13,40,.85);
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  #startScreen .start-credit {
+    bottom: max(9px, env(safe-area-inset-bottom, 0px));
+    left: max(12px, env(safe-area-inset-left, 0px));
+    font-size: 12px;
+  }
+  #startScreen .start-card {
+    max-height: calc(100dvh - 50px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #startScreen .night-stars { animation: none; }
+}
+
+
+/* KSP-V2: persistent maker credit across start, prep, map, missions and results. */
+.global-creator-credit {
+  position: fixed;
+  left: max(13px, env(safe-area-inset-left, 0px));
+  bottom: max(10px, env(safe-area-inset-bottom, 0px));
+  z-index: 12010;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  max-width: calc(100vw - 26px);
+  font: 700 clamp(12px, 1.8vw, 14px)/1.35 "Comic Sans MS", "Comic Sans", sans-serif;
+  letter-spacing: .35px;
+  color: rgba(248, 250, 255, .83);
+  text-shadow: 0 1px 3px #06122bcc, 0 0 7px #06122b99;
+  white-space: nowrap;
+}
+/* Raise only the map's WASD instructions to leave a visible space below. */
+#gameScreen #movementHelp {
+  bottom: max(53px, calc(env(safe-area-inset-bottom, 0px) + 45px));
+}
+@media (max-width: 600px) {
+  .global-creator-credit {
+    left: max(12px, env(safe-area-inset-left, 0px));
+    bottom: max(9px, env(safe-area-inset-bottom, 0px));
+    font-size: 12px;
+  }
+  #gameScreen #movementHelp {
+    bottom: max(49px, calc(env(safe-area-inset-bottom, 0px) + 42px));
+  }
+}
+
+
+/* KSP-V2: numbered oral-answer instructions for Missions 3 and 4 only. */
+.voice-instruction-screen .voice-instruction-box {
+  max-width: 550px;
+  margin: 4px auto 16px;
+  padding: 14px 17px;
+  background: #dcecf8;
+  border: 2px solid #8cb9d8;
+  border-radius: 14px;
+  color: #263d46;
+  text-align: left;
+}
+.voice-instruction-screen .voice-instruction-box p {
+  margin: 0 0 9px;
+  max-width: none;
+  font-size: 17px;
+  line-height: 1.42;
+}
+.voice-instruction-screen .voice-instruction-number {
+  font-weight: 900;
+  color: #176a62;
+}
+.voice-instruction-screen .voice-instruction-example {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid #aacbde;
+  font-size: 16px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+.voice-instruction-screen .voice-instruction-example > strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #6c4b22;
+}
+@media (max-width: 700px) {
+  .voice-instruction-screen .voice-instruction-box { padding: 10px 12px; margin-bottom: 10px; }
+  .voice-instruction-screen .voice-instruction-box p { font-size: 14px; margin-bottom: 7px; }
+  .voice-instruction-screen .voice-instruction-example { font-size: 13px; margin-top: 7px; padding-top: 6px; }
+}
