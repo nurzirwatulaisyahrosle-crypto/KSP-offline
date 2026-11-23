@@ -15,7 +15,7 @@ Ini ialah projek **berasingan** daripada [KSP-V2 Online](https://nurzirwatulaisy
 
 ## Had yang perlu diketahui
 - Peta, imej, avatar, audio dan Misi 1–2 boleh digunakan tanpa Internet **selepas fail cache disimpan sepenuhnya**.
-- Misi 3–5 menggunakan Web Speech Recognition dari pelayar; pengecaman pertuturan **mungkin memerlukan Internet**, terutamanya pada iPhone. Mod offline tidak menjamin semakan suara.
+- Misi 3–5: semasa Internet tersedia, pengecaman suara pelayar digunakan. Tanpa Internet, murid boleh **merakam jawapan menggunakan mikrofon telefon**, mendengar semula rakaman dan **guru menyemak serta mengesahkan jawapan secara manual**. Jangan dakwa suara dinilai secara automatik dalam mod offline.
 - Pemain lain/multiplayer sengaja dinyahaktifkan di repositori offline kerana Firebase memerlukan Internet.
 - Fail aset asal dimuat turun daripada KSP-V2 **sekali semasa pemasangan pertama**, kemudian dicache secara setempat. KSP-V2 sendiri tidak diubah.
 - Cache pelayar boleh dipadam oleh sistem; selalu uji sebelum menggunakannya tanpa Internet.
