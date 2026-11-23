@@ -1,6 +1,6 @@
 /* Kembara Si PeTara - standalone offline cache, scoped to /KSP-offline/.
    Downloads original permitted game assets once; nothing changes in KSP-V2. */
-const CACHE_NAME = "ksp-offline-v1-20261124";
+const CACHE_NAME = "ksp-offline-v2-local-assets-20261124";
 const LOCAL_FILES = ["./", "./index.html", "./script.js", "./style.css", "./manifest.webmanifest"];
 const ASSETS = [
   "assets/audio/cp1-1.m4a",
@@ -79,7 +79,6 @@ const ASSETS = [
   "assets/player/petara-up-3.png",
   "assets/player/petara-up-4.png"
 ];
-const ORIGIN_GAME = new URL("../KSP-V2/", self.registration.scope);
 const LOCAL_GAME = new URL("./", self.registration.scope);
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
@@ -93,9 +92,8 @@ self.addEventListener("install", event => {
     for(let i=0;i<ASSETS.length;i+=8){
       await Promise.all(ASSETS.slice(i,i+8).map(async relative=>{
         try {
-          const original=new URL(relative,ORIGIN_GAME);
           const local=new URL(relative,LOCAL_GAME);
-          const response=await fetch(original,{cache:"reload"});
+          const response=await fetch(local,{cache:"reload"});
           if(!response.ok)throw new Error(String(response.status));
           await cache.put(local,response);
         } catch(e) { errors.push(relative); }
@@ -124,15 +122,8 @@ self.addEventListener("fetch",event=>{
     const key=new URL(url.pathname, url.origin); // ignore cache-busting query strings
     const hit=await cache.match(key.href,{ignoreSearch:true});
     if(hit)return hit;
-    // Installation may not have finished: lazily fetch and cache missing assets.
-    if(url.pathname.startsWith(new URL("assets/",LOCAL_GAME).pathname)){
-      try {
-        const relative=url.pathname.slice(LOCAL_GAME.pathname.length);
-        const remote=new URL(relative,ORIGIN_GAME);
-        const response=await fetch(remote);
-        if(response.ok){await cache.put(key.href,response.clone());return response;}
-      }catch(e){}
-    }
+    // All static assets are stored in this independent repository.
+    // If an asset was not precached, use the local URL, not the online game.
     try {
       const response=await fetch(request);
       if(response.ok)await cache.put(key.href,response.clone());
