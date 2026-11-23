@@ -1,0 +1,17 @@
+{
+  "name": "Kembara Si PeTara — Offline",
+  "short_name": "PeTara Offline",
+  "description": "Permainan Bahasa Melayu luar talian; muatkan semua bahan sekali sebelum terputus Internet.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#166d84",
+  "icons": [
+    {
+      "src": "../KSP-V2/assets/ksp-v2-logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
