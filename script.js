@@ -348,28 +348,52 @@ function testMicrophone() {
     window.webkitSpeechRecognition;
 
   if (!navigator.onLine) {
-    // Offline Web Speech Recognition is not dependable on iPhone.
-    // Let learners access the map and listening activities without claiming mic support.
-    if (readyBtn) {
-      readyBtn.disabled = false;
-      readyBtn.classList.remove("hidden");
-      document.querySelector("#startJourneyOverlay")?.classList.remove("hidden");
+    // A real microphone permission test works offline; speech-to-text may not.
+    if (!navigator.mediaDevices?.getUserMedia) {
+      if (micTestStatus) {
+        micTestStatus.textContent = "⚠️ Pelayar ini tidak menyediakan akses mikrofon. Cuba buka aplikasi daripada ikon Skrin Utama atau Safari.";
+        micTestStatus.className = "mic-test-status warning";
+      }
+      return;
     }
     if (micTestStatus) {
-      micTestStatus.textContent = "📴 Mod luar talian: Peta dan audio tersedia. Pengecaman suara mungkin tidak berfungsi tanpa Internet.";
-      micTestStatus.className = "mic-test-status warning";
+      micTestStatus.textContent = "🎤 Meminta kebenaran mikrofon...";
+      micTestStatus.className = "mic-test-status listening";
     }
+    navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+      const live=stream.getAudioTracks().some(track=>track.readyState==="live");
+      stream.getTracks().forEach(track=>track.stop());
+      if (micTestStatus) {
+        micTestStatus.textContent = live
+          ? "✅ Mikrofon boleh digunakan tanpa Internet. Jawapan lisan akan dirakam untuk semakan guru."
+          : "⚠️ Mikrofon tidak aktif. Semak kebenaran mikrofon.";
+        micTestStatus.className = live ? "mic-test-status success" : "mic-test-status warning";
+      }
+      if (live && readyBtn) {
+        readyBtn.disabled = false;
+        readyBtn.classList.remove("hidden");
+        document.querySelector("#startJourneyOverlay")?.classList.remove("hidden");
+      }
+    }).catch(error=>{
+      if (micTestStatus) {
+        micTestStatus.textContent = error?.name==="NotAllowedError"
+          ? "⚠️ Akses mikrofon ditolak. Benarkan mikrofon untuk laman ini dalam tetapan Safari dan cuba lagi."
+          : "⚠️ Mikrofon belum dapat dibuka. Cuba Safari atau ikon aplikasi di Skrin Utama.";
+        micTestStatus.className = "mic-test-status warning";
+      }
+    });
     return;
   }
   if (!SR) {
+    // Browser can still permit voice recording even if recognition is unavailable.
     if (micTestStatus) {
-      micTestStatus.textContent =
-        "⚠️ Ujian suara tidak disokong oleh pelayar ini. Kamu masih boleh terus bermain.";
-
-      micTestStatus.className =
-        "mic-test-status warning";
+      micTestStatus.textContent = "🎤 Pengecaman suara tiada. Tekan UJI MIKROFON untuk semak fungsi rakaman.";
+      micTestStatus.className = "mic-test-status warning";
     }
-
+    if (readyBtn) {
+      readyBtn.disabled = false;
+      document.querySelector("#startJourneyOverlay")?.classList.remove("hidden");
+    }
     return;
   }
 
