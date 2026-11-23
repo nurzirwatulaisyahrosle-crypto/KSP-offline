@@ -290,7 +290,7 @@ function startGame() {
     prepScreen.classList.remove("hidden");
     // Offline: do not block the entire game on network-based speech recognition.
     // Oral missions instead provide a local recorder and teacher confirmation.
-    if (!navigator.onLine && readyBtn) {
+    if (readyBtn) {
       readyBtn.disabled = false;
       readyBtn.classList.remove("hidden");
       const overlay = document.querySelector("#startJourneyOverlay");
@@ -343,185 +343,42 @@ if (readyBtn) {
 }
 
 function testMicrophone() {
-  const SR =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-  if (!navigator.onLine) {
-    // A real microphone permission test works offline; speech-to-text may not.
-    if (!navigator.mediaDevices?.getUserMedia) {
-      if (micTestStatus) {
-        micTestStatus.textContent = "⚠️ Pelayar ini tidak menyediakan akses mikrofon. Cuba buka aplikasi daripada ikon Skrin Utama atau Safari.";
-        micTestStatus.className = "mic-test-status warning";
-      }
-      return;
-    }
+  // Device microphone test, not cloud speech recognition.
+  if (!navigator.mediaDevices?.getUserMedia) {
     if (micTestStatus) {
-      micTestStatus.textContent = "🎤 Meminta kebenaran mikrofon...";
-      micTestStatus.className = "mic-test-status listening";
-    }
-    navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-      const live=stream.getAudioTracks().some(track=>track.readyState==="live");
-      stream.getTracks().forEach(track=>track.stop());
-      if (micTestStatus) {
-        micTestStatus.textContent = live
-          ? "✅ Mikrofon boleh digunakan tanpa Internet. Jawapan lisan akan dirakam untuk semakan guru."
-          : "⚠️ Mikrofon tidak aktif. Semak kebenaran mikrofon.";
-        micTestStatus.className = live ? "mic-test-status success" : "mic-test-status warning";
-      }
-      if (live && readyBtn) {
-        readyBtn.disabled = false;
-        readyBtn.classList.remove("hidden");
-        document.querySelector("#startJourneyOverlay")?.classList.remove("hidden");
-      }
-    }).catch(error=>{
-      if (micTestStatus) {
-        micTestStatus.textContent = error?.name==="NotAllowedError"
-          ? "⚠️ Akses mikrofon ditolak. Benarkan mikrofon untuk laman ini dalam tetapan Safari dan cuba lagi."
-          : "⚠️ Mikrofon belum dapat dibuka. Cuba Safari atau ikon aplikasi di Skrin Utama.";
-        micTestStatus.className = "mic-test-status warning";
-      }
-    });
-    return;
-  }
-  if (!SR) {
-    // Browser can still permit voice recording even if recognition is unavailable.
-    if (micTestStatus) {
-      micTestStatus.textContent = "🎤 Pengecaman suara tiada. Tekan UJI MIKROFON untuk semak fungsi rakaman.";
+      micTestStatus.textContent = "⚠️ Akses mikrofon tidak tersedia. Buka menggunakan Safari (HTTPS) dan cuba lagi.";
       micTestStatus.className = "mic-test-status warning";
     }
-    if (readyBtn) {
-      readyBtn.disabled = false;
-      document.querySelector("#startJourneyOverlay")?.classList.remove("hidden");
-    }
     return;
   }
-
-  if (micTestRecognition) {
-    try {
-      micTestRecognition.stop();
-    } catch (e) {}
-  }
-
-  micTestPassed = false;
-  if (readyBtn) {
-    readyBtn.disabled = true;
-    const overlay = document.querySelector("#startJourneyOverlay");
-    if (overlay) overlay.classList.add("hidden");
-  }
-
-  const r = new SR();
-
-  r.lang = "ms-MY";
-  r.continuous = false;
-  r.interimResults = true;
-  r.maxAlternatives = 3;
-
-  micTestRecognition = r;
-
   if (micTestStatus) {
-    micTestStatus.textContent =
-      '🎙️ Sedang mendengar... Sebut “Hai, PeTara!”.';
-
-    micTestStatus.className =
-      "mic-test-status listening";
+    micTestStatus.textContent = "🎤 Meminta kebenaran mikrofon...";
+    micTestStatus.className = "mic-test-status listening";
   }
-
-  let heard = "";
-
-  r.onresult = event => {
-    heard = "";
-
-    for (
-      let i = event.resultIndex;
-      i < event.results.length;
-      i++
-    ) {
-      heard +=
-        " " + event.results[i][0].transcript;
+  // Called directly from a user's tap, including on iOS.
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
+    const active=stream.getAudioTracks().some(track=>track.readyState==="live");
+    stream.getTracks().forEach(track=>track.stop());
+    if (micTestStatus) {
+      micTestStatus.textContent = active ?
+        "✅ Mikrofon berfungsi. Jawapan lisan akan dirakam untuk semakan guru." :
+        "⚠️ Mikrofon tidak aktif. Semak kebenaran mikrofon.";
+      micTestStatus.className = active ? "mic-test-status success" : "mic-test-status warning";
     }
-
-    const text = norm(heard);
-
-   if (text.trim().length > 0) {
+    if (active) {
       micTestPassed = true;
       if (readyBtn) {
         readyBtn.disabled = false;
         readyBtn.classList.remove("hidden");
-        const overlay = document.querySelector("#startJourneyOverlay");
-        if (overlay) overlay.classList.remove("hidden");
+        document.querySelector("#startJourneyOverlay")?.classList.remove("hidden");
       }
-
-      if (micTestStatus) {
-        micTestStatus.textContent =
-          "✅ Mikrofon berfungsi dengan baik. Anda sudah bersedia!";
-
-        micTestStatus.className =
-          "mic-test-status success";
-      }
-
-      try {
-        r.stop();
-      } catch (e) {}
     }
-
-    else if (micTestStatus) {
-      micTestStatus.textContent =
-        `🎙️ Suara dikesan: "${heard.trim()}"`;
-    }
-  };
-
-  r.onerror = event => {
-    if (!micTestStatus) return;
-
-    if (
-      event.error === "not-allowed" ||
-      event.error === "service-not-allowed"
-    ) {
-      micTestStatus.textContent =
-        "⚠️ Mikrofon tidak dapat digunakan. Sila benarkan akses kepada mikrofon pada peranti anda dan cuba lagi.";
-    }
-
-    else if (event.error === "no-speech") {
-      micTestStatus.textContent =
-        "🎤 Suara belum dapat dikesan. Cuba sekali lagi.";
-    }
-
-    else {
-      micTestStatus.textContent =
-        "⚠️ Mikrofon belum dapat diuji. Cuba sekali lagi.";
-    }
-
-    micTestStatus.className =
-      "mic-test-status warning";
-  };
-
-  r.onend = () => {
-    micTestRecognition = null;
-
-    if (
-      !micTestPassed &&
-      micTestStatus &&
-      !micTestStatus.textContent.includes("⚠️")
-    ) {
-      micTestStatus.textContent =
-        "🎤 Suara belum dapat dikesan. Cuba UJI MIKROFON sekali lagi.";
-
-      micTestStatus.className =
-        "mic-test-status warning";
-    }
-  };
-
-  try {
-    r.start();
-  }
-
-  catch (e) {
+  }).catch(error => {
     if (micTestStatus) {
-      micTestStatus.textContent =
-        "⚠️ Mikrofon belum dapat dimulakan. Cuba sekali lagi.";
+      micTestStatus.textContent = "⚠️ Mikrofon gagal dibuka ("+(error?.name || "ralat")+"). Semak izin mikrofon Safari atau aplikasi.";
+      micTestStatus.className = "mic-test-status warning";
     }
-  }
+  });
 }
 
 function enterWorld() {
@@ -1706,7 +1563,7 @@ function renderVoice(
         class="transcript"
       >
       </div>
-      ${!navigator.onLine ? '<div id="offlineVoiceReview" class="offline-voice-review" style="display:grid;gap:8px;padding:12px;margin:10px 0;border:2px solid #8ab1b1;border-radius:12px;background:#e7f8f5"><p>📴 Mod luar talian: jawapan lisan dirakam dan disemak oleh guru.</p></div>' : ''}
+      <div id="offlineVoiceReview" class="offline-voice-review" style="display:grid;gap:8px;padding:12px;margin:10px 0;border:2px solid #8ab1b1;border-radius:12px;background:#e7f8f5"><p>🎤 Jawapan lisan dirakam pada peranti dan disemak oleh guru.</p></div>
     `
   );
 
@@ -1740,10 +1597,9 @@ function renderVoice(
   */
 
 recordBtn.onclick = () => {
-  if (!navigator.onLine) {
-    handleOfflineVoiceButton();
-    return;
-  }
+  // Always record locally in the independent KSP-Offline app.
+  handleOfflineVoiceButton();
+  return;
 
   // ===================================================
   // JIKA SEDANG MERAKAM
