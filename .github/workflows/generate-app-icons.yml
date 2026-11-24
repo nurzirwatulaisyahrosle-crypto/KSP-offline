@@ -1,0 +1,37 @@
+name: Generate iPhone and Android app icons
+on:
+  push:
+    paths:
+      - '.github/workflows/generate-app-icons.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  icons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate dedicated square icons from official KSP logo
+        run: |
+          python3 -m pip install --user Pillow
+          python3 - <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          source=Image.open("assets/ksp-v2-logo.png").convert("RGBA")
+          Path("assets/icons").mkdir(parents=True,exist_ok=True)
+          for size,name in [(180,"apple-touch-icon.png"),(192,"icon-192.png"),(512,"icon-512.png")]:
+              background=Image.new("RGBA",(size,size),(234,247,236,255))
+              foreground=source.copy()
+              foreground.thumbnail((round(size*0.92),round(size*0.92)),Image.Resampling.LANCZOS)
+              background.alpha_composite(foreground,((size-foreground.width)//2,(size-foreground.height)//2))
+              background.convert("RGB").save("assets/icons/"+name,optimize=True)
+          PY
+      - name: Commit icons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/icons
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate proper iOS and Android app icons from KSP logo"
+            git push
+          fi
