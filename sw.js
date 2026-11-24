@@ -1,7 +1,7 @@
 /* Kembara Si PeTara - standalone offline cache, scoped to /KSP-offline/.
    Downloads original permitted game assets once; nothing changes in KSP-V2. */
-const CACHE_NAME = "ksp-offline-v7-mic-test-required-20261124";
-const LOCAL_FILES = ["./", "./index.html", "./script.js", "./style.css", "./manifest.webmanifest"];
+const CACHE_NAME = "ksp-offline-v8-app-icon-20261124";
+const LOCAL_FILES = ["./", "./index.html", "./script.js", "./style.css", "./manifest.webmanifest", "./assets/icons/apple-touch-icon.png", "./assets/icons/icon-192.png", "./assets/icons/icon-512.png"];
 const ASSETS = [
   "assets/audio/cp1-1.m4a",
   "assets/audio/cp1-2.m4a",
